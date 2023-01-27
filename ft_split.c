@@ -1,28 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adi-fort <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/18 15:39:47 by adi-fort          #+#    #+#             */
-/*   Updated: 2023/01/24 16:52:00 by adi-fort         ###   ########.fr       */
+/*   Created: 2023/01/25 11:48:36 by adi-fort          #+#    #+#             */
+/*   Updated: 2023/01/27 15:45:19 by adi-fort         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-char	*ft_strchr(const char *str, int c)
+int	ft_how_many(char	*s, int c)
 {
-	size_t	i;
-	size_t	slen;
+	char	**array_array;
 
+	array_array[0] = s;
+	if (!ft_strchr(s, c))
+			return (array_array);
+	count = 0;
 	i = 0;
-	slen = ft_strlen(str);
-	while (i <= slen)
-	{		
-		if (str[i] == (char)c)
-			return ((char *)&str[i]);
-		i++;
+	while (s[i])
+	{
+		while (s[i] != c)
+		{	
+			if (s[i] == c)
+			count += 1;
+			i++;
+		}	
+		while (s[i] == c)
+			i++;
 	}
-	return (NULL);
+	return (count + 1);
+	
+	//restituire X = numero di stringhe da allocare dopo il cut
+}
+
+
+char	**ft_split(char const *s, char c)
+{
+
+	//Alloco (X * sizeof(char *))
 }

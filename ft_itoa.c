@@ -1,30 +1,55 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memchr.c                                        :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adi-fort <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/19 09:54:23 by adi-fort          #+#    #+#             */
-/*   Updated: 2023/01/26 17:13:18 by adi-fort         ###   ########.fr       */
+/*   Created: 2023/01/25 11:50:17 by adi-fort          #+#    #+#             */
+/*   Updated: 2023/01/27 15:51:44 by adi-fort         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-void	*ft_memchr(const void *str, int c, size_t n)
+int	ft_howlong(int c)
 {
-	size_t	i;
-	char	*s;
-
-	i = 0;
-	s = (char *)str;
-	while (i < n)
+	int	count;
+	
+	count = 0;
+	if (c < 0)
 	{
-		if ((unsigned char)s[i] == (unsigned char)c)
+		c *= -c;
+		count++;
+	}
+	while (c  == 0)
+	{
+		c = c / 10;
+		count++;
+	}
+	return (count);
+}
+
+char	*ft_itoa(int n)
+{
+	int	i;
+	char	*new;
+
+	new = malloc((ft_howlong(n)) * sizeof(char));
+	if (!new)
+		return (NULL);
+	if (n == 0)
+		new[0] = '0';
+	if (n < 0)
+		new[0] = '-';
+	i = 0;
+	if (n > 9)
+	{
+		while (ft_howlong(n) != 0)
 		{
-			return ((void *)(&s[i]));
+			new[i] = n % 10 + 48;
+			i++;
+			n = n / 10;
 		}
-		i++;
-	}	
-	return (NULL);
+	}
+	return (new);
 }

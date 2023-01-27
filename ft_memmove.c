@@ -6,7 +6,7 @@
 /*   By: adi-fort <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:52:41 by adi-fort          #+#    #+#             */
-/*   Updated: 2023/01/19 15:29:04 by adi-fort         ###   ########.fr       */
+/*   Updated: 2023/01/23 16:55:04 by adi-fort         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
@@ -17,8 +17,8 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 	char	*s1;
 	char	*s2;
 
-	if (!(dest && src && n))
-		return (0);
+	if ((char *)src == '\0' && (char *)dest == '\0')
+		return (NULL);
 	s1 = (char *)dest;
 	s2 = (char *)src;
 	i = 0;
