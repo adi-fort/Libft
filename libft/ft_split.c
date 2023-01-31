@@ -1,0 +1,103 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: adi-fort <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/25 11:48:36 by adi-fort          #+#    #+#             */
+/*   Updated: 2023/01/31 10:10:53 by adi-fort         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+#include "libft.h"
+
+int	count_words(char const	*s, char c)
+{
+	int	i;
+	int	cword;
+	int	flag;
+
+	cword = 0;
+	flag = 0;
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] != c && flag == 0)
+		{
+			cword++;
+			i++;
+			flag = 1;
+		}
+		else if (s[i] == c && flag == 1)
+			flag = 0;
+		else
+			i++;
+	}
+	return (cword);
+}
+
+char	*wordfill(char const *s, int start, int finish)
+{
+	char	*word;
+	int		i;
+
+	i = 0;
+	word = malloc((finish - start + 1) * sizeof(char));
+	if (!word)
+		return (NULL);
+	while (start < finish)
+	{
+		word[i] = s[start];
+		i++;
+		start++;
+	}
+	word[i] = 0;
+	return (word);
+}
+
+void	ft_initialize(size_t *i, size_t *j, size_t *tmp)
+{
+	*i = 0;
+	*j = 0;
+	*tmp = 0;
+}
+
+void	*free_all(char **s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i])
+		free (s[i]);
+	free (s);
+	return (NULL);
+}
+
+char	**ft_split(char const *s, char c)
+{
+	size_t	i;
+	size_t	j;
+	size_t	tmp;
+	char	**split;
+
+	ft_initialize(&i, &j, &tmp);
+	split = malloc((count_words(s, c) + 1) * sizeof(char *));
+	if (!split)
+		return (NULL);
+	while (i <= ft_strlen(s))
+	{
+		if (s[i] == c || i == ft_strlen(s))
+		{
+			if (tmp != i)
+			{
+				split[j++] = wordfill(s, tmp, i);
+				if (!split[j - 1])
+					return (free_all(split));
+			}
+			tmp = i + 1;
+		}
+		i++;
+	}
+	split[j] = 0;
+	return (split);
+}
